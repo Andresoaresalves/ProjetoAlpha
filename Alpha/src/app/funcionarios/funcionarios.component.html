@@ -1,0 +1,68 @@
+<app-titulo [titulo]="titulo"></app-titulo>
+<div *ngIf="funcionarioSelected">
+
+<div class="row">
+    <h3>Funcionário Selecionado: {{funcionarioSelected!.Nome}}</h3>
+ </div>
+ <br>
+ <form>
+  <div class="mb-3">
+    <label for="formGroupExampleInput" class="form-label">Nome</label>
+    <input type="text" value="{{funcionarioSelected.Nome}}" class="form-control" >
+  </div>
+  <div class="mb-3">
+    <label for="formGroupExampleInput2" class="form-label">Sobrenome</label>
+    <input type="text" value="{{funcionarioSelected.Sobrenome}}" class="form-control" >
+  </div>
+  <div class="mb-3">
+    <label for="formGroupExampleInput2" class="form-label">Documento</label>
+    <input type="text" value="{{funcionarioSelected.Documento}}" class="form-control" >
+  </div> 
+  <div class="form-group" >
+    <button class="btn btn-outline-dark" (click)="Voltar()" >Voltar</button> 
+    <button class="btn btn-outline-dark">Editar</button>
+    <button class="btn btn-outline-dark">Salvar</button>
+  </div>
+ </form>
+</div>
+
+<div *ngIf="!funcionarioSelected">
+  <table class="table table-hover">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Nome</th>
+        <th scope="col">Sobrenome</th>
+        <th scope="col">Documento</th>
+        <th scope="col">Ações</th>
+        
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let funcionario of funcionarios">
+        <th scope="row">{{funcionario.Id}}</th>
+        <td>{{funcionario.Nome}}</td>
+        <td>{{funcionario.Sobrenome}}</td>
+        <td>{{funcionario.Documento}}</td>
+        <td> 
+          <div style="cursor:pointer;"  class="btn-group">
+            <button (click)="funcionarioSelect(funcionario)" class="btn btn-outline-dark">Detalhes</button>
+            <button (click)="openModal(template)" class="btn btn-outline-dark">Departamento</button>
+            <button class="btn btn-outline-dark">Exluir</button>
+          </div> 
+      </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<ng-template #template>
+
+  <div class="modal-body">
+    <app-departamentos></app-departamentos>
+  </div>
+  <div class="m-footer">
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+    </button>
+  </div>
+</ng-template>

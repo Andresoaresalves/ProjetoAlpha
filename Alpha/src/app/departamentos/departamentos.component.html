@@ -1,0 +1,60 @@
+<app-titulo [titulo]="titulo"></app-titulo>
+<div *ngIf="departamentoSelected">
+  <div class="row">
+    <h3>Departamento Selecionado: {{departamentoSelected!.Nome}}</h3>
+  </div> 
+    <br>
+    <form>
+     <div class="mb-3">
+      <label for="formGroupExampleInput" class="form-label">Nome</label>
+      <input type="text" value= "{{departamentoSelected.Nome}}"class="form-control" >
+    </div>
+    <div class="mb-3">
+      <label for="formGroupExampleInput2" class="form-label">Sigla</label>
+      <input type="text" value= "{{departamentoSelected.Sigla}}" class="form-control" >
+    </div>
+    <div class="form-group">
+      <button class="btn btn-outline-dark" (click)="Voltar()" >Voltar</button>
+      <button class="btn btn-outline-dark">Editar</button>
+      <button class="btn btn-outline-dark">Salvar</button>
+    </div>
+    </form>
+  
+</div>
+
+  <div *ngIf="!departamentoSelected">
+    <table class="table table-hover">
+      <thead class="thead-light">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nome</th>
+            <th scope="col">Sigla</th>
+            <th scope="col">Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let departamento of departamentos">
+            <th scope="row">{{departamento.Id}}</th>
+            <td>{{departamento.Nome}}</td>
+            <td>{{departamento.Sigla}}</td>
+            <td> 
+            <div class="btn-group">
+              <button style="cursor: pointer;" (click)="departamentoSelect(departamento)" class="btn btn-outline-dark">Detalhes</button>  
+              <button (click)="openModal(template)" class="btn btn-outline-dark">Funcionários</button>
+              <button class="btn btn-outline-dark">Exluir</button>
+            </div> 
+          </td>
+          </tr>
+        </tbody>
+      </table>
+  </div>
+ 
+  <ng-template #template>
+    <div class="modal-body mr-auto">
+      <app-funcionarios></app-funcionarios>
+    </div>
+    <div class="m-footer">
+      <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+      </button>
+    </div>
+  </ng-template>
